@@ -5,28 +5,34 @@ import { connect } from "react-redux";
 import { createPost } from "../actions";
 
 class PostsNew extends Component {
-  renderField(field) {
-    const { meta: { touched, error } } = field;
-    const className = `form-group ${touched && error ? "has-danger" : ""}`;
+
+  renderField(field){
+    const {meta : {touched, error}} = field;
+    const className = `form-group ${touched && error ? 'has-danger' : ''}`;
 
     return (
       <div className={className}>
         <label>{field.label}</label>
-        <input className="form-control" type="text" {...field.input} />
+        <input
+          className="form-control"
+          type="text"
+          {...field.input}
+        />
         <div className="text-help">
           {touched ? error : ""}
         </div>
       </div>
-    );
+    )
   }
 
   onSubmit(values) {
-    this.props.createPost(values, () => {
-      this.props.history.push("/");
-    });
-  }
+      this.props.createPost(values, () => {
+        this.props.history.push("/");
+      });
+    }
 
   render() {
+
     const { handleSubmit } = this.props;
 
     return (
@@ -51,15 +57,15 @@ class PostsNew extends Component {
       </form>
     );
   }
-}
 
+
+}
 function validate(values) {
   // console.log(values) -> { title: 'asdf', categories: 'asdf', content: 'asdf' }
   const errors = {};
-
   // Validate the inputs from 'values'
   if (!values.title) {
-    errors.title = "Enter a title";
+    errors.title = "Enter a title that is at least 3 characters!";
   }
   if (!values.categories) {
     errors.categories = "Enter some categories";
@@ -76,4 +82,6 @@ function validate(values) {
 export default reduxForm({
   validate,
   form: "PostsNewForm"
-})(connect(null, { createPost })(PostsNew));
+})(
+  connect(null, { createPost })(PostsNew)
+);
