@@ -23,7 +23,6 @@ class PostsShow extends Component {
     if (!post) {
       return <div>Loading...</div>;
     }
-
     return (
       <div>
         <Link to="/">Back To Index</Link>
